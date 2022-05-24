@@ -1,6 +1,6 @@
 ### This is King's Learning Blog
 
-- I will share my learning process in this place.
+- I will share my learning process [in this place](https://richard1230.github.io/index.html).
 
 
 
