@@ -1,0 +1,1596 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="front end," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Richard's Learning" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="package.json">
+<meta name="keywords" content="front end">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Basics">
+<meta property="og:url" content="http://localhost:4000/react/2021/01/23/react_basics/">
+<meta property="og:site_name" content="Richard's Learning">
+<meta property="og:description" content="package.json">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Basics">
+<meta name="twitter:description" content="package.json">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>React Basics</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Richard's Learning</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/react/2021/01/23/react_basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../../assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Richard's Learning">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            React Basics
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-23T00:00:00+08:00">
+                23-01-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/React" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/react/2021/01/23/react_basics/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="/react/2021/01/23/react_basics/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="packagejson">package.json</h3>
+
+<p><code class="language-plaintext highlighter-rouge">"react-scripts":"3.0.0"</code> =&gt;  It allows use to have no worry about webpack and babble.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts start</span><span class="dl">"</span><span class="p">,</span>
+    <span class="c1">// starts the react project by running "yarn start"</span>
+    <span class="dl">"</span><span class="s2">build</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts build</span><span class="dl">"</span><span class="p">,</span>
+    <span class="c1">// it used to turn all of the react code in the &lt;source&gt; folder into that version the browser to understand and put it inside of this &lt;public&gt; folder,</span>
+    <span class="c1">// after running "npm run build" generated a &lt;build&gt; folder, this is the place ready to be deployed and be displayed to the outside users.</span>
+    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts test</span><span class="dl">"</span><span class="p">,</span>
+    <span class="c1">// run the test code we will going to write</span>
+    <span class="dl">"</span><span class="s2">eject</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts eject</span><span class="dl">"</span>
+    <span class="c1">// take out all of the configuration files that it's hidden from us from Babble and webpack in case wwe will manage it ourselves.</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="source-folder">‘source’ folder</h3>
+<ul>
+  <li>All applications live, our workspace</li>
+</ul>
+
+<h3 id="public-folder">‘public’ folder</h3>
+<ul>
+  <li>The browser needs an older version of javascript and html to understand</li>
+</ul>
+
+<h3 id="class-vs-classname">‘class’ vs. ‘className’</h3>
+<ul>
+  <li>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// class</span>
+   <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+      <span class="kd">constructor</span><span class="p">(){</span>
+         <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">string</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello Today I start to learn something from yihua's teaching</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">(){</span>
+      <span class="k">return</span><span class="p">(</span>
+        <span class="c1">// className</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">header</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App-header</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="sr">/header</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span>    <span class="p">}</span>
+    <span class="c1">//the 'className' in the render is used to differentiate the class at the beginning</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="render-method">‘render()’ method</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">render()</code> is one of the built-in methods of <code class="language-plaintext highlighter-rouge">React.Component</code>, the <code class="language-plaintext highlighter-rouge">super()</code> inside the React.Component’s <code class="language-plaintext highlighter-rouge">constructor()</code> helps us call <code class="language-plaintext highlighter-rouge">render()</code></li>
+</ul>
+
+<h3 id="two-ways-to-create-components">Two Ways to create components</h3>
+<ul>
+  <li>Class Component</li>
+  <li>Functional Component</li>
+</ul>
+
+<h3 id="props-in-the-functional-component">‘props’ in the functional component</h3>
+<ul>
+  <li>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+      <span class="k">export</span> <span class="kd">const</span> <span class="nx">CardList</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">hello</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span>      <span class="p">}</span>
+
+      <span class="c1">// App.js</span>
+      <span class="c1">// ...</span>
+      <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App</span><span class="dl">"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">CardList</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Grace-Yueran</span><span class="dl">"</span><span class="o">/&gt;</span>
+            <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">monsters</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;&lt;</span><span class="nx">h1</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">)
+</span>            <span class="p">}</span>
+          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">props</code> is going to be an object of any properties that you write onto this component where it gets used.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="children-property">‘children’ Property</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// card-list.component.jsx</span>
+    <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+        <span class="k">export</span> <span class="kd">const</span> <span class="nx">CardList</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+          <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span>    
+    <span class="c1">// App.js</span>
+      <span class="nx">render</span><span class="p">(){</span>
+          <span class="k">return</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App</span><span class="dl">"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">CardList</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Grace-Yueran</span><span class="dl">"</span><span class="o">&gt;</span>
+    
+          <span class="c1">// children property</span>
+            <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Grace</span> <span class="nx">Yueran</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/CardList</span><span class="err">&gt;
+</span>            <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">monsters</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="se">)</span><span class="sr"> </span><span class="err">}
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="p">)</span>
+      <span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Children</code> are actually what you pass in between the brackets of our component that gets called.</li>
+</ul>
+
+<h3 id="the-benefits-of-when-do-we-break-things-down-into-components">The Benefits of When do we break things down into components?</h3>
+<ul>
+  <li>To be a great React developer you need to be good at these very well:
+    <ol>
+      <li>Decide on Components</li>
+      <li>Decide the State and where it lives</li>
+      <li>What changes when state changes</li>
+    </ol>
+  </li>
+  <li>By breaking things down we’re making things more flexible because each component does one thing and one thing really well.</li>
+  <li>It can be used in other places, the bigger a file gets the more JSX we have, the more logic we have, the harder it gets to be used in another place.</li>
+  <li>The KEY here is that the reason we break things down into smaller components is that we combine each component with its concern and that concern is that this component is only concerned about card list. This component is only concerned about cards.</li>
+</ul>
+
+<h3 id="the-second-argument-of-setstate">The second argument of ‘setState()’</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// App.js</span>
+    <span class="c1">// if we wanted to see or do something with our state right after we set it</span>
+    <span class="c1">// then we have to do it inside of this second argument function that will get called right after the set state.</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App</span><span class="dl">"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">'</span><span class="s1">search</span><span class="dl">'</span> <span class="nx">placeholder</span><span class="o">=</span><span class="dl">'</span><span class="s1">Search Monster</span><span class="dl">'</span>
+                    <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">searchField</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">},</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">)</span>
+                    <span class="p">})}</span><span class="sr">/</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">CardList</span> <span class="nx">monsters</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">monsters</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="p">)</span>
+      <span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li><strong>The second parameter</strong> to <strong><em>setState()</em></strong> is an optional callback function that will be executed once <strong><em>setState</em></strong> is completed and the component is re-rendered. <strong><em>componentDitUpdate</em></strong> should be used instead to apply such logic in most cases.</li>
+</ul>
+
+<h3 id="destructuring">Destructuring</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">monsters</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="na">searchField</span><span class="p">:</span> <span class="dl">''</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="c1">// the state object is what we want to pull the properties of</span>
+  <span class="kd">const</span> <span class="p">{</span><span class="nx">monsters</span><span class="p">,</span> <span class="nx">searchField</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+  <span class="c1">// equals</span>
+  <span class="kd">const</span> <span class="nx">monsters</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">monsters</span>
+  <span class="kd">const</span> <span class="nx">searchField</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">searchField</span>
+</code></pre></div></div>
+
+<h3 id="when-use-class-component-and-when-use-functional-component">When use class component and when use functional component?</h3>
+<ul>
+  <li><strong><em>functional components</em></strong>, unlike <strong><em>class components</em></strong>, they don’t have the access to <strong><em>state</em></strong>, because they don’t have the access to constructor, which is a class method on our <strong><em>Component</em></strong> that we import from our React, that we extend our class from.</li>
+  <li>They also don’t have access to lifecycle methods, because we don’t always need lifecycle methods or internal state.</li>
+  <li>Sometimes we only want to render some HTML, that’s what functional component really is.</li>
+  <li>A functional component is just a component that gets some props and returns some HTML.</li>
+  <li>If you don’t need internal state nor lifecycle methods, then just use functional components. It’s easier to read and easier to test.</li>
+</ul>
+
+<h3 id="the-test-of-the-scope-of-arrow-function">The test of the scope of arrow function</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c1">// ======= define the function in the window scope</span>
+     <span class="kd">const</span> <span class="nx">myFunc</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+     <span class="c1">// call myFunc()</span>
+     <span class="nx">myFunc</span><span class="p">()</span>
+     <span class="c1">// result: Window {window: Window, self: Window, document: document, name: "", location: Location, …}</span>
+
+
+    <span class="c1">// ======= define a function in a class scope</span>
+    <span class="kd">class</span> <span class="nx">FatherClass</span><span class="p">{</span>
+        <span class="nx">myFunc2</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FatherClass</span><span class="p">()</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">myFunc2</span><span class="p">()</span>
+      <span class="c1">// result: FatherClass {myFunc2: ƒ}</span>
+</code></pre></div></div>
+
+<h3 id="always-use-the-latest-version-of-react-and-reactdom">Always use the Latest Version of React and ReactDOM</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">monsters-rolodex</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.1.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">private</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">homepage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.graceyutech.com/monsters-rolodex/</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">dependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">@testing-library/jest-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.11.4</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">@testing-library/react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^11.1.0</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">@testing-library/user-event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^12.1.10</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">gh-pages</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^3.1.0</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^17.0.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="cm">/* '^' symbol means whatever the package manager you are using
+      wheather it is a yarn or NPM, whenever it sees npm upgrade or yarn upgrade,
+      to update to the latest stable non-breaking version.
+      In other words, it should be at least using the '17.0.1' version or greater of react-dom and react.
+      */</span>
+      <span class="dl">"</span><span class="s2">react-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^17.0.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">react-scripts</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4.0.3</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">web-vitals</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.0.1</span><span class="dl">"</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>What is the <code class="language-plaintext highlighter-rouge">yarn.lock</code> file?
+    <ol>
+      <li>It isn’t auto-generated file by either NPM or a yarn that locks the version of all the packages inside of our application within a specific range based on the rules that we set inside of package.</li>
+      <li>Without <code class="language-plaintext highlighter-rouge">'^'</code> this Caret symbol, the <code class="language-plaintext highlighter-rouge">yarn.lock</code> file, the version of React and ReactDOM and React scripts are locked exactly that version, the fixed version shows in <code class="language-plaintext highlighter-rouge">package.json</code> file.</li>
+      <li>However, when we added this caret <code class="language-plaintext highlighter-rouge">'^'</code>, it gives more flexibility which means the <code class="language-plaintext highlighter-rouge">yarn.lock</code> file is out of date and needs to be updated. And this file only updates whenever you run <code class="language-plaintext highlighter-rouge">yarn install</code>.</li>
+    </ol>
+  </li>
+  <li>And why we need this file?
+    <ol>
+      <li>If there are multiple people are working on this application they are all using versions of dependencies that don’t conflict with each other, because maybe some people are running React ‘17.0.0’ someone is running React ‘16.0.0.’, and there is difference in features that might be breaking in the application.</li>
+      <li>So <code class="language-plaintext highlighter-rouge">yarn.lock</code> file just ensures everybody is using a consistent version of these dependencies.</li>
+      <li>After we run <code class="language-plaintext highlighter-rouge">yarn.lock</code> file, we generated a new lock file. From now on, you can simply run your yarn upgrade whenever you want to upgrade these dependencies.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="one-main-difference-between-yarn-and-npm">One main difference between <strong><em>yarn</em></strong> and <strong><em>npm</em></strong></h3>
+<ul>
+  <li>This command <code class="language-plaintext highlighter-rouge">npm audit fix</code> will go through and update the versions to a version of a package where it doesn’t have a security concern anymore.</li>
+  <li>While, yarn doesn’t have this command, we only can install and upgrade all the packages that you see with a vulnerability.</li>
+</ul>
+
+<h3 id="what-is-virtual-dom">What is Virtual DOM?</h3>
+<ul>
+  <li>Virtual DOM is a javascript object. It’s a way to emulate the Real DOM.</li>
+</ul>
+
+<h3 id="state-updates-are-asynchronous-you-should-pass-a-function-as-the-first-parameter-in-the-setstate-to-update-the-state-synchronously">State updates are asynchronous!!! You should Pass a function as the first parameter in the setState() to update the state synchronously!!!</h3>
+
+<h3 id="react-concepts">React Concepts</h3>
+<ol>
+  <li>Don’t touch the DOM. I’ll do it</li>
+  <li>Build websites like lego blocks</li>
+  <li>Unidirectional data flow</li>
+  <li>UI, The rest is up to you</li>
+</ol>
+
+<h3 id="the-job-of-a-senior-react-developer">The job of a SENIOR React Developer</h3>
+<p>1.Decide on Components</p>
+<ol>
+  <li>Decide the State and where it lives</li>
+  <li>What changes when state changes</li>
+  <li><strong><em>This idea of deciding on components, deciding about the state and where it lists what happens when state changes because of user action. These all things that nobody is going  to tell you. These are things that is dependent on each app that you built.</em></strong></li>
+  <li><strong><em>What the senior developers have had this ability to think for themselves not just follow a tutorial but actually implement these things based on knowledge and experience that they’ve gathered.</em></strong></li>
+</ol>
+
+<h3 id="the-benefit-of-using-arrow-function-in-jsx">The Benefit of using Arrow Function in JSX!!!</h3>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">this</code> keyword with arrow function points to the current class object <code class="language-plaintext highlighter-rouge">NameForm</code> . However, without arrow function, you should manually bind the methods to current class object <code class="language-plaintext highlighter-rouge">NameForm</code>. Otherwise, <code class="language-plaintext highlighter-rouge">this</code> will point to global object <code class="language-plaintext highlighter-rouge">window</code>. Therefore, we can downsize the code by using arrow function.</p>
+</blockquote>
+
+<h4 id="example-1">Example 1:</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Code without Arrow function</span>
+<span class="kd">class</span> <span class="nx">NameForm</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+    <span class="c1">// you need to manually bind the methods to the current class object</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">value</span><span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">A name was submitted: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+          <span class="nx">Name</span><span class="p">:</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/label</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span> <span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">Submit</span><span class="dl">"</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="example-2">Example 2:</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Code with Arrow function</span>
+<span class="kd">class</span> <span class="nx">NameForm</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">value</span><span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">A name was submitted: </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+          <span class="nx">Name</span><span class="p">:</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/label</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span> <span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">Submit</span><span class="dl">"</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/front%20end" rel="tag"># front end</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/react/2021/02/02/pull_code_from_others_repo/" rel="next" title="How to Pull Code from Other's Repository and Change 'Origin'?">
+                <i class="fa fa-chevron-left"></i> How to Pull Code from Other's Repository and Change 'Origin'?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/javascript/2020/12/24/Loader_and_Plugins/" rel="prev" title="Loader and Plugins">
+                Loader and Plugins <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+      <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Richard" />
+          <p class="site-author-name" itemprop="name">Richard</p>
+           
+              <p class="site-description motion-element" itemprop="description">Just Do It!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/richard1230" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/2060721841" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/richardhu1230" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-3"> <a class="nav-link" href="#packagejson"> <span class="nav-number">1</span> <span class="nav-text">package.json</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#source-folder"> <span class="nav-number">2</span> <span class="nav-text">‘source’ folder</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#public-folder"> <span class="nav-number">3</span> <span class="nav-text">‘public’ folder</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#class-vs-classname"> <span class="nav-number">4</span> <span class="nav-text">‘class’ vs. ‘className’</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#render-method"> <span class="nav-number">5</span> <span class="nav-text">‘render()’ method</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#two-ways-to-create-components"> <span class="nav-number">6</span> <span class="nav-text">Two Ways to create components</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#props-in-the-functional-component"> <span class="nav-number">7</span> <span class="nav-text">‘props’ in the functional component</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#children-property"> <span class="nav-number">8</span> <span class="nav-text">‘children’ Property</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#the-benefits-of-when-do-we-break-things-down-into-components"> <span class="nav-number">9</span> <span class="nav-text">The Benefits of When do we break things down into components?</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#the-second-argument-of-setstate"> <span class="nav-number">10</span> <span class="nav-text">The second argument of ‘setState()’</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#destructuring"> <span class="nav-number">11</span> <span class="nav-text">Destructuring</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#when-use-class-component-and-when-use-functional-component"> <span class="nav-number">12</span> <span class="nav-text">When use class component and when use functional component?</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#the-test-of-the-scope-of-arrow-function"> <span class="nav-number">13</span> <span class="nav-text">The test of the scope of arrow function</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#always-use-the-latest-version-of-react-and-reactdom"> <span class="nav-number">14</span> <span class="nav-text">Always use the Latest Version of React and ReactDOM</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#one-main-difference-between-yarn-and-npm"> <span class="nav-number">15</span> <span class="nav-text">One main difference between <strong</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#what-is-virtual-dom"> <span class="nav-number">16</span> <span class="nav-text">What is Virtual DOM?</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#state-updates-are-asynchronous-you-should-pass-a-function-as-the-first-parameter-in-the-setstate-to-update-the-state-synchronously"> <span class="nav-number">17</span> <span class="nav-text">State updates are asynchronous!!! You should Pass a function as the first parameter in the setState() to update the state synchronously!!!</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#react-concepts"> <span class="nav-number">18</span> <span class="nav-text">React Concepts</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#the-job-of-a-senior-react-developer"> <span class="nav-number">19</span> <span class="nav-text">The job of a SENIOR React Developer</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#the-benefit-of-using-arrow-function-in-jsx"> <span class="nav-number">20</span> <span class="nav-text">The Benefit of using Arrow Function in JSX!!!</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#example-1"> <span class="nav-number">20.1</span> <span class="nav-text">Example 1:</span> </a> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#example-2"> <span class="nav-number">20.2</span> <span class="nav-text">Example 2:</span> </a> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Richard.disqus.com/count.js" async></script>
+    
+
+    
+      
+      <script type="text/javascript">
+          var disqus_config = function () {
+              this.page.url = 'http://localhost:4000/react/2021/01/23/react_basics/';
+              this.page.identifier = '/react/2021/01/23/react_basics/';
+              this.page.title = 'React Basics';
+          };
+          var d = document, s = d.createElement('script');
+          s.src = 'https://Richard.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', '' + +new Date());
+          (d.head || d.body).appendChild(s);
+      </script>
+      
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
