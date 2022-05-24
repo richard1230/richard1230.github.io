@@ -1,150 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-24T12:54:56+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Richard’s Learning</title><subtitle>Just Do It!</subtitle><author><name>Richard</name></author><entry><title type="html">Migration of Javascript to Typescript of Portfolio</title><link href="http://localhost:4000/typescript/javascript/2022/04/03/portfolio_migrate_ts/" rel="alternate" type="text/html" title="Migration of Javascript to Typescript of Portfolio" /><published>2022-04-03T00:00:00+08:00</published><updated>2022-04-03T00:00:00+08:00</updated><id>http://localhost:4000/typescript/javascript/2022/04/03/portfolio_migrate_ts</id><content type="html" xml:base="http://localhost:4000/typescript/javascript/2022/04/03/portfolio_migrate_ts/">&lt;h3 id=&quot;回忆从javascript迁移到typescript的修复bug的过程&quot;&gt;回忆从Javascript迁移到Typescript的修复bug的过程&lt;/h3&gt;
-
-&lt;h4 id=&quot;tsx-extensions-的问题&quot;&gt;.tsx extensions 的问题&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;首先在原有的React project上安装typescript的模板，运行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yarn add typescript @types/node @types/react @types/react-dom @types/jest&lt;/code&gt;.
-因为不知道该怎么下手，所以搜索了一下油管的一些视频,像&lt;a href=&quot;https://www.youtube.com/watch?v=A_rrMXLwyqI&quot;&gt;How to add Typescript to existing ReactJS project? Step by step tutorial&lt;/a&gt;.
-看了一点点视频后发现视频的内容比较简单，而修改我自己的portfolio却是一个巨大的工程，所以我决定在这个视频的启发下开始自己动手改代码。
-心里比较没底，所以一开始就从简单的components改。打开 &lt;strong&gt;&lt;em&gt;components&lt;/em&gt;&lt;/strong&gt; folder,从第一个 &lt;strong&gt;&lt;em&gt;About&lt;/em&gt;&lt;/strong&gt; 文件改起。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;遇到的第一个问题是需要手动添加后缀名 &lt;strong&gt;&lt;em&gt;.tsx&lt;/em&gt;&lt;/strong&gt; 到import的语句里。
-&lt;img src=&quot;../../../../../../assets/images/JS-TS/ts_error_one.png&quot; width=&quot;800&quot; alt=&quot;js-ts-error1&quot; /&gt;
-添加完后缀 &lt;strong&gt;&lt;em&gt;.tsx&lt;/em&gt;&lt;/strong&gt;  界面还是报错，如上图。所以要想办解决这个后缀的问题。
-有人建议在 &lt;strong&gt;&lt;em&gt;webpack.config.js&lt;/em&gt;&lt;/strong&gt; 里添加一个 extension，（如下图所示）
-&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error2.png&quot; width=&quot;800&quot; alt=&quot;js-ts-error2&quot; /&gt;
-但是 &lt;strong&gt;&lt;em&gt;webpack.config.js&lt;/em&gt;&lt;/strong&gt; 本来就有一个 比较复杂的 extensions，（如下图所示），一开始没想删除原extensions,但是后来实在一直跑不通，就把复杂的源代码删了，用官网提供的简单的 extensions代替，然后就奏效了。 所以，整个debug的过程就是不停的尝试，然后不行就换另一个方法，直到跑通。在这个过程中，需要联想到曾经学过的知识，那些知识能帮助纠正偏差，往正确的猜测和可能的结果上靠。
-&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error3.png&quot; width=&quot;800&quot; alt=&quot;js-ts-error3&quot; /&gt;
-&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error4.png&quot; width=&quot;800&quot; alt=&quot;js-ts-error4&quot; /&gt;
-以上的截图就是最终结果。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;png-后缀的图片报错&quot;&gt;.png 后缀的图片报错&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;搜索过的问题关键词有：&lt;strong&gt;Module not found: Error: Can’t resolve ‘assets/image.png&lt;/strong&gt;
-最后 stack overflow 上这个结果 【&lt;strong&gt;&lt;a href=&quot;https://stackoverflow.com/questions/43638454/webpack-typescript-image-import?rq=1&quot;&gt;Webpack &amp;amp; Typescript image import&lt;/a&gt;&lt;/strong&gt; 】让我找到了解决方案。
-也是配置了 webpack.config.js, 我采用了 该贴的 【Setup Webpack file-loader, add declaration.d.ts, and voila!】这个答案。需要生成 tsconfig.json 文件。
-具体方法如下：&lt;/p&gt;
-  &lt;ol&gt;
-    &lt;li&gt;安装 file-loader, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yarn add -D file-loader&lt;/code&gt;&lt;/li&gt;
-    &lt;li&gt;在 &lt;strong&gt;webpack.config.js&lt;/strong&gt; 里 添加一个 rule
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;module: {
- rules: [
-   ...,
-   {
-     test: /\.(png|jpe?g|gif|jp2|webp)$/,
-     loader: 'file-loader',
-     options: {
-       name: '[name].[ext]',
-     },
-   },
- ],
-},
-&lt;/code&gt;
-这里一开始我复制粘贴错了地方，导致代码运行，不正常，后来通过仔细对比，放对了地方。&lt;/li&gt;
-    &lt;li&gt;安装 &lt;strong&gt;&lt;em&gt;tsconfig.js&lt;/em&gt;&lt;/strong&gt; 然后复制一下代码到这个文件里：
-      &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; {
-   &quot;compilerOptions&quot;: {
-     ...,
-     &quot;jsx&quot;: &quot;react&quot;,
-     &quot;esModuleInterop&quot;: true,
-     &quot;target&quot;: &quot;ES2020&quot;,
-     &quot;moduleResolution&quot;: &quot;node&quot;
-   },
-   &quot;exclude&quot;: [&quot;node_modules&quot;, &quot;**/*.spec.ts&quot;, &quot;**/*.test.ts&quot;],
-   &quot;include&quot;: [&quot;src&quot;, &quot;index.d.ts&quot;] /// &amp;lt;-- Like this!!
- }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;      &lt;/div&gt;
-      &lt;p&gt;注意一定要添加 “jsx”:”react” 这一句，因为一开始我忽略了改代码的上一半内容，导致后面每个文件都开始报错（Error when opening TSX file: Cannot use JSX unless ‘–jsx’ flag is provided）。
-4.最后在 src folder 隔壁创建个 &lt;strong&gt;&lt;em&gt;index.d.ts&lt;/em&gt;&lt;/strong&gt;, 这个文件已经在第三步, “include”里添加了。然后我们可以再 index.d.ts文件里 引用 图片后缀.png 相关的  module&lt;/p&gt;
-      &lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;kr&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;*.png&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;kr&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;*.jpg&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;      &lt;/div&gt;
-      &lt;p&gt;这样 “.png” 等图片后缀报错的问题就解决了。&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;totop---useref-断言&quot;&gt;toTop - useRef() 断言&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error6.JPG&quot; width=&quot;800&quot; alt=&quot;js-ts-error6&quot; /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;在 &lt;strong&gt;&lt;em&gt;scrollToTop&lt;/em&gt;&lt;/strong&gt; 这块代码上，使用 useRef，但是不知道用什么类型合适，最后搜到 &lt;strong&gt;&lt;em&gt;HTMLAnchorElement&lt;/em&gt;&lt;/strong&gt;这个类型，但是 current 还在继续报错，最后搜索stackoverflow得到的结果是使用&lt;strong&gt;&lt;em&gt;断言&lt;/em&gt;&lt;/strong&gt;(assertion),
-改到这里的时候，我已经把 &lt;strong&gt;&lt;em&gt;App.js&lt;/em&gt;&lt;/strong&gt; 改成了 &lt;strong&gt;&lt;em&gt;App.tsx&lt;/em&gt;&lt;/strong&gt;了，所以很多时候把 &lt;strong&gt;&lt;em&gt;App.tsx&lt;/em&gt;&lt;/strong&gt;里的问题修复好，相关的components的报错自然就消失了。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;报错could-not-find-a-declaration-file-for-module-react-google-recaptcha&quot;&gt;报错：Could not find a declaration file for module ‘react-google-recaptcha’.&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;这个同样需要添加 module 到 &lt;strong&gt;&lt;em&gt;index.d.ts&lt;/em&gt;&lt;/strong&gt;  里去. 后面 &lt;strong&gt;&lt;em&gt;react-scroll&lt;/em&gt;&lt;/strong&gt;也是一样的。&lt;/p&gt;
-  &lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;kr&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;react-google-recaptcha&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;kr&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;react-scroll&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;给各种provider-申明-interface-或者-type&quot;&gt;给各种Provider 申明 interface 或者 type&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;因为使用了 &lt;strong&gt;&lt;em&gt;context&lt;/em&gt;&lt;/strong&gt; 所以，需要给  自定义的context的申明类型，然后在 &lt;strong&gt;&lt;em&gt;createContext&lt;/em&gt;&lt;/strong&gt;的时候初始化类型这个不难,具体例子如下：&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useCallback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;react&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    
-     &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OpenCloseProps&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;setOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Dispatch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SetStateAction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;toggleOpenClose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OpenCloseContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OpenCloseProps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;setOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;toggleOpenClose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    
-    
-    &lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OpenCloseProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ReactNode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;toggleOpenClose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useCallback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-         &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OPObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;toggleOpenClose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OpenCloseContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Provider&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OPObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/OpenCloseContext.Provider&amp;gt;       &lt;/span&gt;&lt;span class=&quot;err&quot;&gt; 
-&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;之后，使用了styled-components, 里面有个ThemeProvider, 关于theme的类型, 首先需要在 src的隔壁创建一个 &lt;strong&gt;&lt;em&gt;theme.d.ts&lt;/em&gt;&lt;/strong&gt;，然后添加到 &lt;strong&gt;&lt;em&gt;tsconfig.js&lt;/em&gt;&lt;/strong&gt;。 如果 &lt;strong&gt;&lt;em&gt;tsconfig.js&lt;/em&gt;&lt;/strong&gt; 里没有 &lt;strong&gt;&lt;em&gt;theme.d.ts&lt;/em&gt;&lt;/strong&gt;,&lt;strong&gt;&lt;em&gt;styled-components&lt;/em&gt;&lt;/strong&gt;的 &lt;strong&gt;&lt;em&gt;global.style.tsx&lt;/em&gt;&lt;/strong&gt; 里就会不停报错，报错内容是 &lt;strong&gt;&lt;em&gt;theme&lt;/em&gt;&lt;/strong&gt; 的 &lt;strong&gt;&lt;em&gt;DefaultTheme&lt;/em&gt;&lt;/strong&gt;里面没有 &lt;strong&gt;&lt;em&gt;chosenTheme&lt;/em&gt;&lt;/strong&gt;等这些自定义类型，所以我们需要手动添加自定义 props到 &lt;strong&gt;&lt;em&gt;DefaultTheme&lt;/em&gt;&lt;/strong&gt;里去，申明如下:&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NDThemeProps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FontProps&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;./src/components/gobalStyles&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    
-    &lt;span class=&quot;kr&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;styled-components&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DefaultTheme&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;nl&quot;&gt;chosenTheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NDThemeProps&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;fontCollection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FontProps&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;isOpen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;嵌套的component或者叫-子类components的类型申明&quot;&gt;嵌套的component,或者叫 子类components的类型申明&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;在 &lt;strong&gt;&lt;em&gt;Nav&lt;/em&gt;&lt;/strong&gt; 这个components里有很多嵌套的components, 比如 &lt;strong&gt;&lt;em&gt;MenuList.tsx&lt;/em&gt;&lt;/strong&gt;，父类components的类型一定要被子类components的类型完全继承，一定要检查不能有遗漏。
-还有 不能有重复的prop出现在，比如我父级component &lt;strong&gt;&lt;em&gt;Nav&lt;/em&gt;&lt;/strong&gt;的 interface已经有一个&lt;strong&gt;&lt;em&gt;setOpen&lt;/em&gt;&lt;/strong&gt;  prop 了，子级component  &lt;strong&gt;&lt;em&gt;MenuList&lt;/em&gt;&lt;/strong&gt; 在有&amp;lt;…props&amp;gt;的情况下又 又写了一个 &lt;strong&gt;&lt;em&gt;setOpen={setOpen}&lt;/em&gt;&lt;/strong&gt;, 最后通过仔细检查父类和子类的 类型才知道 我写重复了。报错信息： 【TS2783: ‘setOpen’ is specified more than once, so this usage will be overwritten.】
-之前没有 typescript 的时候 没有关于重复的任何报错，typescript会发现像 prop引用重复这类问题。&lt;/p&gt;
-
-  &lt;h4 id=&quot;以下是两张报错示例截图作为复习参考吧&quot;&gt;以下是两张报错示例截图，作为复习参考吧&lt;/h4&gt;
-  &lt;p&gt;&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error5.jpeg&quot; width=&quot;800&quot; alt=&quot;js-ts-error5&quot; /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../../../../../assets/images/JS-TS/js-ts-error7.png&quot; width=&quot;800&quot; alt=&quot;js-ts-error7&quot; /&gt;&lt;/p&gt;</content><author><name>Richard</name></author><category term="Typescript" /><category term="Javascript" /><category term="Typescript" /><category term="Portfolio" /><summary type="html">回忆从Javascript迁移到Typescript的修复bug的过程</summary></entry><entry><title type="html">Differences between Interfaces and Type Aliases</title><link href="http://localhost:4000/typescript/2022/03/06/differ-interface-type/" rel="alternate" type="text/html" title="Differences between Interfaces and Type Aliases" /><published>2022-03-06T00:00:00+08:00</published><updated>2022-03-06T00:00:00+08:00</updated><id>http://localhost:4000/typescript/2022/03/06/differ-interface-type</id><content type="html" xml:base="http://localhost:4000/typescript/2022/03/06/differ-interface-type/">&lt;p&gt;Type aliases and interfaces are very similar, and in many cases you can choose between them freely.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-24T13:23:04+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Richard’s Learning</title><subtitle>Just Do It!</subtitle><author><name>Richard</name></author><entry><title type="html">Differences between Interfaces and Type Aliases</title><link href="http://localhost:4000/typescript/2022/03/06/differ-interface-type/" rel="alternate" type="text/html" title="Differences between Interfaces and Type Aliases" /><published>2022-03-06T00:00:00+08:00</published><updated>2022-03-06T00:00:00+08:00</updated><id>http://localhost:4000/typescript/2022/03/06/differ-interface-type</id><content type="html" xml:base="http://localhost:4000/typescript/2022/03/06/differ-interface-type/">&lt;p&gt;Type aliases and interfaces are very similar, and in many cases you can choose between them freely.&lt;/p&gt;
 
 &lt;p&gt;Almost all features of an &lt;strong&gt;interface&lt;/strong&gt; are available in &lt;strong&gt;type&lt;/strong&gt;, the key distinction is that a type cannot be re-opened to add new properties vs an interface which is always extendable.&lt;/p&gt;
 &lt;h3 id=&quot;type&quot;&gt;Type:&lt;/h3&gt;
@@ -252,64 +106,7 @@
     &lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="CSS" /><category term="CSS" /><summary type="html">This is driving me crazy~! So here is the code snippet will often use in the future.</summary></entry><entry><title type="html">Implement stStr()</title><link href="http://localhost:4000/algorithm/2022/01/12/implement_strStr/" rel="alternate" type="text/html" title="Implement stStr()" /><published>2022-01-12T00:00:00+08:00</published><updated>2022-01-12T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/12/implement_strStr</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/12/implement_strStr/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Implement strStr().
-Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
-
-Clarification:
-What should we return when needle is an empty string? This is a great question to ask during an interview.
-For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
-
-
-Example 1:
-
-Input: haystack = &quot;hello&quot;, needle = &quot;ll&quot;
-Output: 2
-Example 2:
-
-Input: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;
-Output: -1
-Example 3:
-
-Input: haystack = &quot;&quot;, needle = &quot;&quot;
-Output: 0
-Constraints:
-
-0 &amp;lt;= haystack.length, needle.length &amp;lt;= 5 * 104
-haystack and needle consist of only lower-case English characters.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;thinking&quot;&gt;Thinking&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;traverse the haystack string, find out if there is the one letter equal the first letter in the needle string&lt;/li&gt;
-  &lt;li&gt;if true, we can slice the length that equal to the needle string from the letter we found in the haystack, compare
-them&lt;/li&gt;
-  &lt;li&gt;if equal the index&lt;/li&gt;
-  &lt;li&gt;otherwise, we always return -1&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;cm&quot;&gt;/**
- * @param {string} haystack
- * @param {string} needle
- * @return {number}
- */&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;strStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><summary type="html">Description</summary></entry><entry><title type="html">Remove Element</title><link href="http://localhost:4000/algorithm/2022/01/12/remove_element/" rel="alternate" type="text/html" title="Remove Element" /><published>2022-01-12T00:00:00+08:00</published><updated>2022-01-12T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/12/remove_element</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/12/remove_element/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="CSS" /><category term="CSS" /><summary type="html">This is driving me crazy~! So here is the code snippet will often use in the future.</summary></entry><entry><title type="html">Remove Element</title><link href="http://localhost:4000/algorithm/2022/01/12/remove_element/" rel="alternate" type="text/html" title="Remove Element" /><published>2022-01-12T00:00:00+08:00</published><updated>2022-01-12T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/12/remove_element</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/12/remove_element/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The relative order of the elements may be changed.
 Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
@@ -369,6 +166,63 @@ It does not matter what you leave beyond the returned k (hence they are undersco
   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><summary type="html">Description</summary></entry><entry><title type="html">Implement stStr()</title><link href="http://localhost:4000/algorithm/2022/01/12/implement_strStr/" rel="alternate" type="text/html" title="Implement stStr()" /><published>2022-01-12T00:00:00+08:00</published><updated>2022-01-12T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/12/implement_strStr</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/12/implement_strStr/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Implement strStr().
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Clarification:
+What should we return when needle is an empty string? This is a great question to ask during an interview.
+For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+
+
+Example 1:
+
+Input: haystack = &quot;hello&quot;, needle = &quot;ll&quot;
+Output: 2
+Example 2:
+
+Input: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;
+Output: -1
+Example 3:
+
+Input: haystack = &quot;&quot;, needle = &quot;&quot;
+Output: 0
+Constraints:
+
+0 &amp;lt;= haystack.length, needle.length &amp;lt;= 5 * 104
+haystack and needle consist of only lower-case English characters.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;thinking&quot;&gt;Thinking&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;traverse the haystack string, find out if there is the one letter equal the first letter in the needle string&lt;/li&gt;
+  &lt;li&gt;if true, we can slice the length that equal to the needle string from the letter we found in the haystack, compare
+them&lt;/li&gt;
+  &lt;li&gt;if equal the index&lt;/li&gt;
+  &lt;li&gt;otherwise, we always return -1&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;cm&quot;&gt;/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;strStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;haystack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><summary type="html">Description</summary></entry><entry><title type="html">Remove Duplicated from Sorted Array</title><link href="http://localhost:4000/algorithm/2022/01/11/remove_duplicated/" rel="alternate" type="text/html" title="Remove Duplicated from Sorted Array" /><published>2022-01-11T00:00:00+08:00</published><updated>2022-01-11T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/11/remove_duplicated</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/11/remove_duplicated/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
@@ -735,4 +589,53 @@ It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../../../../assets/images/RomanToInteger.png&quot; width=&quot;500&quot; alt=&quot;Domain Name&quot; /&gt;&lt;/p&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><summary type="html">Description</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../../../../../assets/images/RomanToInteger.png&quot; width=&quot;500&quot; alt=&quot;Domain Name&quot; /&gt;&lt;/p&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><summary type="html">Description</summary></entry><entry><title type="html">Palindrome Number</title><link href="http://localhost:4000/algorithm/2022/01/06/palindrome/" rel="alternate" type="text/html" title="Palindrome Number" /><published>2022-01-06T00:00:00+08:00</published><updated>2022-01-06T00:00:00+08:00</updated><id>http://localhost:4000/algorithm/2022/01/06/palindrome</id><content type="html" xml:base="http://localhost:4000/algorithm/2022/01/06/palindrome/">&lt;h4 id=&quot;description&quot;&gt;Description&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given an integer x, return true if x is palindrome integer.
+An integer is a palindrome when it reads the same backward as forward.
+For example, 121 is a palindrome while 123 is not.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Example 1:
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+Example 2:
+
+Input: x = -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+
+Input: x = 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isPalindrome&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reversedInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reversedInteger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// declare a temporary container to store the reversed digits from x one by one&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reversed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;// truncate the digidts from Ones digit to Hundreds digit of x, &lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// x needs greater than 0 after each truncate&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// key point: 'reversed' is the iterator&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// the % module function is used to get the number from Ones digit&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 用取模工具依次取个位数，十位数，百位数&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;reversed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reversed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// this is used to remove the Ones digit from the x, &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// and x will be a new shorter number and will be used the next time &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 然后 用Math.floor获截取个位数之后的值，直到最后都截取完&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reversed&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Richard</name></author><category term="Algorithm" /><category term="Algorithm" /><category term="Leetcode" /><summary type="html">Description</summary></entry></feed>
