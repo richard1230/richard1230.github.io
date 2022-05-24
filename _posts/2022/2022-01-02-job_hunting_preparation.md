@@ -1,5 +1,5 @@
 ---
-title: 搜集的在加拿大找工作的Tips
+title: 搜集的找北美(Canada)工作的Tips
 date: 02-01-2022
 categories:
   - Job Hunting
