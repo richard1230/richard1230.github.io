@@ -308,3 +308,17 @@ same thing, it's going to run this components constructor. This components rende
 to do the same thing. So it's going from top down.
 
 
+### tips: Arrow function
+```jsx
+(monster) => { 
+  return <Card monster={ monster }/>
+  }
+ // two methods is equal
+
+(monster) => <Card monster={ monster }/>
+```
+
+## React lifecycle
+
+React lifecycle: <br>
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
