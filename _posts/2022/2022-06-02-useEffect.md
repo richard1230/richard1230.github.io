@@ -84,7 +84,7 @@ export default App;
 
 running:
 
-![closure-trap](../../assets/images/closure_trap.png)
+![closure-trap](../../../../../assets/images/closure_trap.png)
 
 打印的并不是我们预期的 0、1、2、3，而是 0、0、0、0，这是为什么呢？
 
